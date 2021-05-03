@@ -68,9 +68,57 @@ if (initinp[0] == 'H' && initinp[1] == 'E' && initinp[2] == 'A' && initinp[3] ==
     else if (initinp[0] == 'T' && initinp[1] == 'Y' && initinp[2] == 'P' && initinp[3] == "E") {
 
         cout << "Type in numbers, seperated by a space:" << endl;
+        char in[10000];
+        
+        cin.get(in, 10000);
+        cin.clear();
+        cin.ignore(10000, '\n');
+        
+        parse(in, mod, charcount);
+        cout << "IN: ";
+        for (int i = 0; i < 100; i++) {
+            
+         if(mod[i] == 0) break; //????
+         cout << mod[i] << " "; //????
+        }
+        cout << endl;
     }
+    else {
+     
+        cout << Invalid Input. Please enter the correct command." << endl; 
+    }
+    
+    //create a heap tree here
 }
 
 
-
+}
+//Thanks to Bradley for the help
+void createHeap(int* mod, int* heap, int size) {
+  int current = 1;
+    
+  //set index at 1 to largest int
+  heap[1] = mod[getMax(mod)];  //largest set at index 1
+  mod[getMax(mod)] = 0;
+  
+    while(current <= size) {
+     
+    //check if out of nums
+    if(heap[2*current] == 0) {  //if right child is empty
+      //fill right child with the next max integer
+    
+      heap[2*current] = mod[getMax(mod)];
+      mod[getMax(mod)] = 0;
+        
+      //fill left child with the next max integer
+      heap[2*current+1] = mod[getMax(mod)];
+      mod[getMax(mod)] = 0;
+    } 
+    else {  //if right child is not empty
+      //fill left child with next max int
+      heap[2*current+1] = mod[getMax(mod)];
+      mod[getMax(mod)] = 0;
+    }
+    current++;
+  }
 }
